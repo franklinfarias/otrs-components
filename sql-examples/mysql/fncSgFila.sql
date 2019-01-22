@@ -1,0 +1,50 @@
+﻿CREATE FUNCTION `fncSgFila`(Id INTEGER(11))
+    RETURNS varchar(50) 
+    NO SQL
+BEGIN
+   RETURN (CASE 
+            WHEN Id = 5 THEN 'SD'
+            WHEN Id = 6 THEN 'SD2'
+            WHEN Id = 7 THEN 'SRV'
+            WHEN Id = 8 THEN 'DB'
+            WHEN Id = 9 THEN 'SS'
+       		WHEN Id = 10 THEN 'REDE'
+            WHEN Id = 11 THEN 'SEG'
+            WHEN Id = 13 THEN 'GD'
+            WHEN Id = 13 THEN 'AD'
+            WHEN Id = 15 THEN 'REP'
+            WHEN Id = 16 THEN 'SSIS'
+            WHEN Id = 17 THEN 'SHOM'
+            WHEN Id = 18 THEN 'CEDOC'
+            WHEN Id = 19 THEN 'GEO'
+            WHEN Id = 20 THEN 'ENC'
+            WHEN Id = 21 THEN 'SPA'
+            WHEN Id = 23 THEN 'DBPA'
+            WHEN Id = 24 THEN 'CEDOCPA'
+            WHEN Id = 25 THEN 'GEOPA'
+            WHEN Id = 26 THEN 'GDPA'
+            WHEN Id = 28 THEN 'REDEPA'
+            WHEN Id = 29 THEN 'REPPA'
+            WHEN Id = 30 THEN 'SEGPA'
+            WHEN Id = 33 THEN 'SSPA'
+            WHEN Id = 34 THEN 'SSMC'
+            WHEN Id = 35 THEN 'SSME'
+            WHEN Id = 36 THEN 'SSED'
+            WHEN Id = 37 THEN 'DBAS'
+            WHEN Id = 38 THEN 'DBIBD'
+            WHEN Id = 39 THEN 'DBBI'
+            WHEN Id = 40 THEN 'REDEW'
+            WHEN Id = 41 THEN 'REDEAP'
+            WHEN Id = 42 THEN 'REDEBCK'
+            WHEN Id = 43 THEN 'REDECE'
+            WHEN Id = 44 THEN 'REDESR'
+            WHEN Id = 45 THEN 'REDESRV'
+            WHEN Id = 47 THEN 'EP'
+            WHEN Id = 48 THEN 'EPPA'
+            WHEN Id = 49 THEN 'DBSIC'
+            WHEN Id = 50 THEN 'SRVA'
+            WHEN Id = 51 THEN 'AD'
+       ELSE 'NOQUEUE' END);
+END;
+
+-- select * from queue where valid_id = 1 order by 1
