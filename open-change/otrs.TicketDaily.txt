@@ -1,0 +1,6 @@
+## Informacoes de configuracao do arquivo
+## type;queue;customer;owner;subject;description;service;sla;dateschedulerinitial;dateschedulerfinal;unavailable;rollback
+##    dateschedulerinitial use data no formato YYYY-MM-DD HH:MM:SS
+##    dateschedulerfinal use data no formato YYYY-MM-DD HH:MM:SS
+##    unavailable use somente os valores: NAO ou SIM
+Mudança Padrão;2 - Sustentação::Local;franklin.farias;franklin.farias;[BY FILE] - Mudança teste;Descrição: Backup das configurações da controladora WIFI;Mudança Padrão::2 - Sustentação::2.1- Itens organizacionais::2.1.2 - Caixas postais de correio eletrônico::2.1.2.2 - Manter;2 - Sustentação::0::NA;2019-06-19 15:00:00;2019-06-19 16:00:00;NAO;Meu procedimento de rollback
