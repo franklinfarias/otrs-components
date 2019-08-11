@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{{ base_url() }}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template -->
+    <style>
+        .jumbotron {
+            padding: 0.2rem 1rem;
+            margin-bottom: 2rem;
+            background-color: #e9ecef;
+            border-radius: .3rem;
+        }
+    </style>
+    <!-- Bootstrap core JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+    <script src="{{ base_url() }}/assets/js/bootstrap.min.js" ></script>
+    {% endblock %}
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{path_for('home')}}">Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{path_for('catalog')}}">Catálogo <span class="sr-only">(current)</span></a>
+            </li>
+            <!-- li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li -->
+        </ul>
+        {% if auth.check %}
+            <a href="{{path_for('logout')}}" class="btn btn-outline-light active" role="button" aria-pressed="true">
+                <i class="fa fa-sign-out" title="You logged with: {{auth.user}}"></i>
+            </a>
+        {% endif %}
+    </div>
+</nav>
+
+<main role="main">
+    <div class="jumbotron"></div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+
+        <hr>
+    </div>
+</main>
+
+<footer class="container">
+    <p>&copy; Company 2017-2019</p>
+</footer>
+
+{% block jsfooter %}
+{% endblock %}
+
+</body>
+</html>

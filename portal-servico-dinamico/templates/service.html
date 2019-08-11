@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Portal de Serviços{% endblock %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Example row of columns -->
+<div class="row">
+    {% for service in services %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ base_url() }}{{ service.Img }}" class="card-img-top" alt="{{ service.Name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ service.Name }}</h5>
+            <p class="card-text">{{ service.Description }}</p>
+            <a href="{{ base_url() }}/catalog/category/service/{{ service.Id }}" class="btn btn-primary">Solicitar</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+{{ parent() }}
+{% endblock %}

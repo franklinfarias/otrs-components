@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Portal de Serviços{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Example row of columns -->
+<div class="row">
+    {% include 'partials/messages.html' %}
+</div>
+<div class="row">
+
+    {% for catalog in catalogs %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{ base_url() }}{{ catalog.Img }}" class="card-img-top" alt="{{ catalog.Name }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ catalog.Name }}</h5>
+            <p class="card-text">{{ catalog.Description }}</p>
+            <a href="{{ base_url() }}/catalog/{{ catalog.Origin }}/category" class="btn btn-primary">Ver serviços</a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+    {{ parent() }}
+{% endblock %}

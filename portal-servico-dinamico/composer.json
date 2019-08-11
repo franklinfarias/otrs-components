@@ -1,0 +1,20 @@
+{
+  "name": "portal-servico-dinamico",
+  "description": "Portal de Serviços ITSM",
+  "require": {
+    "slim/slim": "^3.10",
+    "slim/twig-view": "^2.4",
+    "monolog/monolog": "^1.24",
+    "respect/validation": "^1.1",
+    "slim/csrf": "^0.8.3",
+    "slim/flash": "^0.4.0",
+    "illuminate/database": "^5.8"
+  },
+  "autoload": {
+    "psr-4":{
+      "App\\":"app/"
+
+    }
+  }
+
+}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Portal de Serviços{% endblock %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Example row of columns -->
+<div class="row">
+    <a href="{{path_for('catalog')}}">Ir para o catálogo.</a>
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+{{ parent() }}
+{% endblock %}

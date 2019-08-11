@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Portal de Serviços{% endblock %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Example row of columns -->
+<div class="row">
+    <div class="card">
+        <article class="card-body">
+            <h4 class="card-title text-center mb-4 mt-1">Formulário de Solicitação de Serviço</h4>
+            <hr>
+            {% include 'partials/messages.html' %}
+            <form id="frmChamado" action="{{path_for('store')}}" method="post" enctype="multipart/form-data" data-toggle="validator">
+                <input type="hidden" name="csrf_name" value="{{csrf_name}}">
+                <input type="hidden" name="csrf_value" value="{{csrf_value}}">
+                <input type="hidden" name="service_id" value="{{service_id}}">
+
+                <div class="form-group">
+                    <input class="form-control" name="subject" type="text" placeholder="Assunto" value="{{old.subject}}" required="">
+                </div>
+
+                <div class="form-group">
+                    <textarea name="description" class="form-control" placeholder="Descrição" required="">{{old.description}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="attachment">Anexo:</label>
+                    <input type="file" class="form-control-file" name="attachment" multiple="">
+                </div>
+                <button type="submit" class="btn btn-danger">Abrir Chamado</button>
+
+            </form>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+
+{% endblock %}
+
+{% block jsfooter %}
+{{ parent() }}
+{% endblock %}
