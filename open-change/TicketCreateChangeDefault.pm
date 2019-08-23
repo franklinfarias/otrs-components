@@ -42,8 +42,10 @@ sub Run {
 
     # ---
     # Variables to be defined.
-    my $UserLogin    = 'atendeti';
-    my $Password     = 'G87p2VyN';
+    #my $UserLogin    = 'atendeti';
+    #my $Password     = 'G87p2VyN';
+    my $UserLogin    = $Param{UserLogin};
+    my $Password     = $Param{Password};
     my $Type1        = $Param{Type};
     my $Queue        = $Param{Queue};
     my $Subject      = $Param{Subject};
@@ -144,8 +146,8 @@ sub ResponseJSON {
         my $json_text = to_json($json);
         print $json_text;
     } else {
-        my @err = ('error to create ticket. check params.');
-        my $json_text = to_json(@err);
+        my $json->{"ticket"} = 'error to create ticket. check params.';
+        my $json_text = to_json($json);
         print $json_text;
     }
 }

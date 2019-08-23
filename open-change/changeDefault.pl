@@ -41,7 +41,7 @@ if ($q->param()){
     my $Rollback                    = decode("utf8", $q->param('Rollback')) | '';
 
     # execute object
-    $Ticket->Run(UserLogin => $Userlogin, Password => $Password, Type => $Type, 
+    $Ticket->Run(UserLogin => $UserLogin, Password => $Password, Type => $Type, 
     Queue => $Queue, Subject => $Subject, Body => $Body, SLA => $SLA, Service => $Service, 
     Customer => $Customer, Owner => $Owner, DateSchedulerInitial => $DateSchedulerInitial,
     DateSchedulerFinal => $DateSchedulerFinal, Unavailable => $Unavailable, Rollback => $Rollback );

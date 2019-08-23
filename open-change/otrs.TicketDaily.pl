@@ -12,7 +12,8 @@ use Date::Parse;
 use File::Basename;
 
 # you need change the url to set OTRS instance
-my $url = "http://172.98.0.200/otrs/changeDefault.pl";
+#my $url = "http://suporte.agu.gov.br/otrs/changeDefault.pl";
+my $url = "http://itsm-agu.hepta.com.br/otrs/changeDefault.pl";
 
 my $TicketID = 0;
 my $ArticleID = 0;
@@ -52,9 +53,9 @@ if (open(my $fh, '<:encoding(UTF-8)', $FileName)) {
             my $request = "?UserLogin=$Usr&Password=$Pwd&Type=$Params[0]&Queue=$Params[1]&Customer=$Params[2]&Owner=$Params[3]&Subject=$Params[4]&Body=$Params[5]&Service=$Params[6]&SLA=$Params[7]&DateSchedulerInitial=$Params[8]&DateSchedulerFinal=$Params[9]&Unavailable=$Params[10]&Rollback=$Params[11]";
             
             my $response = get( $url.$request );
-            my $json = decode_json($response);
-
-            print Dumper $json;
+            #my $json = decode_json($response);
+            #print Dumper $json;
+            print Dumper $response;
             
         }
     }

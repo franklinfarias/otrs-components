@@ -7,7 +7,7 @@ Create a default change (Mudança Padrão) in the model configuring on OTRS.
 
 Copy the file TicketCreateChangeDefault.pm to {OTRS_HOME}/Kernel/System/Web.
 
-Copy the file changeChange.pl to {OTRS_HOME}/bin.
+Copy the file changeChange.pl to {OTRS_HOME}/bin/cgi-bin.
 
 Restart your Apache or apply the configurations (sudo apachectl -k graceful).
 
