@@ -2,15 +2,15 @@
 
 {% block title %}Portal de Serviços{% endblock %}
 {% block head %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}
 
 {% block content %}
 
-<!-- Example row of columns -->
 <div class="row">
     <!-- Card deck -->
     <div class="card-deck">
+        
 
         {% for catalog in catalogs %}
         <!-- Card -->
@@ -33,7 +33,7 @@
             <p class="card-text">{{ catalog.Description }}</p>
             <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
             <!-- button type="button" class="btn btn-light-blue btn-md">Read more</button -->
-            <a href="{{ base_url() }}/type/group/category/{{ catalog.Origin }}/service" class="btn btn-light-blue btn-md">Ver categorias</a>
+            <a href="{{ base_url() }}/type/{{ catalog.Origin }}/group" class="btn btn-light-blue btn-md">Ver categorias</a>
         
             </div>
         
@@ -46,5 +46,5 @@
 {% endblock %}
 
 {% block jsfooter %}
-{{ parent() }}
+    {{ parent() }}
 {% endblock %}

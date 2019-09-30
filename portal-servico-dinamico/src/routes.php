@@ -43,10 +43,15 @@ $app->get('/logout', \App\Controllers\LoginController::class . ':logout')->setNa
 
 // Rotas com autenticação
 $app->group('', function () use ($app) {
+    $app->get('/type', \App\Controllers\ITSMController::class . ':type')->setName('type');
+    $app->get('/type/{id}/group', \App\Controllers\ITSMController::class . ':group')->setName('group');
+    $app->get('/type/group/{id}/category', \App\Controllers\ITSMController::class . ':category')->setName('category');
+    $app->get('/type/group/category/{id}/service', \App\Controllers\ITSMController::class . ':service')->setName('service');
+    $app->get('/type/group/category/service/{id}', \App\Controllers\ITSMController::class . ':requestService')->setName('requestService');
     $app->get('/catalog', \App\Controllers\ITSMController::class . ':catalog')->setName('catalog');
-    $app->get('/catalog/{id}/category', \App\Controllers\ITSMController::class . ':category')->setName('category');
-    $app->get('/catalog/category/{id}/service', \App\Controllers\ITSMController::class . ':service')->setName('service');
-    $app->get('/catalog/category/service/{id}', \App\Controllers\ITSMController::class . ':requestService')->setName('requestService');
+    //$app->get('/catalog/{id}/category', \App\Controllers\ITSMController::class . ':category')->setName('category');
+    //$app->get('/catalog/category/{id}/service', \App\Controllers\ITSMController::class . ':service')->setName('service');
+    //$app->get('/catalog/category/service/{id}', \App\Controllers\ITSMController::class . ':requestService')->setName('requestService');
     $app->post('/store', \App\Controllers\ITSMController::class . ':store')->setName('store');
 })->add(function ($request, $response, $next){
     $uri = $request->getUri();

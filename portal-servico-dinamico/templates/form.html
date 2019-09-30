@@ -12,6 +12,7 @@
     <div class="card">
         <article class="card-body">
             <h4 class="card-title text-center mb-4 mt-1">Formulário de Solicitação de Serviço</h4>
+            <h5 class="card-title text-center mb-4 mt-1">{{services.name}}</h5>
             <hr>
             {% include 'partials/messages.html' %}
             <form id="frmChamado" action="{{path_for('store')}}" method="post" enctype="multipart/form-data" data-toggle="validator">
@@ -24,7 +25,7 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea name="description" class="form-control" placeholder="Descrição" required="">{{old.description}}</textarea>
+                    <textarea name="description" class="form-control" placeholder="Descrição" required="" rows="8">{{old.description}}</textarea>
                 </div>
 
                 <div class="form-group">

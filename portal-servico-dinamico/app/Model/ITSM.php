@@ -57,15 +57,15 @@ class ITSM extends Model
             ->get();
         $service = explode('::', $services[0]->name);
         // set Type
-        $this->type = $service[0];
+        $this->type = 'Requisição de Serviço';
         // set Queue
-        $this->queue = $service[1];
+        $this->queue = $service[0];
         // set State
-        $this->state = 'Aberto';
+        $this->state = 'Novo';
         // set Service
-        $this->service = $service[0]->name;
+        $this->service = $services[0]->name;
         // set Priority
-        $this->priority = '3 Normal';
+        $this->priority = '1 Baixa';
         // set Body
         $this->description = "Descrição do Chamado: " . $this->description . "\n";
         // Attachment
@@ -75,12 +75,72 @@ class ITSM extends Model
     /**
      *
      */
-    public function getServiceCatalog(){
+    public function getServiceType(){
         // Get All Services
         $services = $this->container->db->table('service')
-            ->where('valid_id', 1)
-            ->where('type_id', 4)
-            ->orderBy('name')
+            ->join('service_customer_user','service.id','=','service_customer_user.service_id')
+            ->select('service.*')
+            ->where('service.valid_id', 1)
+            ->where('service.type_id', 4)
+            ->orderBy('service.name')
+            ->get();
+
+        $catalog = array();
+        $oldCatalog = '';
+        foreach ($services as $service) {
+            $tmp = explode('::', $service->name);
+            $id = $this->getService($tmp[0]);
+            $idCatalog = $id[0]->id;
+
+            if ($oldCatalog != $tmp[0]){
+                $catalog[] = array(
+                    'Id' => $idCatalog,
+                    'Name' => $tmp[0],
+                    'Type' => $tmp[0],
+                    //'Queue' => $tmp[1],
+                    'Queue' => '',
+                    //'Origin' => $tmp[0].'::'.$tmp[1],
+                    'Origin' => $tmp[0],
+                    'Img' => '',
+                    'Description' => '',
+                );
+            }
+            $oldCatalog = $tmp[0];
+        }
+
+        // Get Services attributes
+        $tmp = $catalog;
+        foreach ($catalog as $key => $item){
+            // get attributes
+            // random images:: https://picsum.photos/
+            $servicePref = $this->getServicePreferences($item['Id']);
+            foreach($servicePref as $pref){
+                if ($pref->preferences_key == 'ServiceCommentBusiness'){
+                    $tmp[$key]['Description'] = $pref->preferences_value;
+                }
+                if ($pref->preferences_key == 'ServiceImgBusiness'){
+                    $tmp[$key]['Img'] = $pref->preferences_value;
+                }
+            }
+
+        }
+        $catalog = $tmp;
+
+        return $catalog;
+    }
+
+    /**
+     *
+     */
+    public function getServiceGroup($id){
+        // Get All Services
+        $services = $this->container->db->table('service')
+            ->join('service_customer_user','service.id','=','service_customer_user.service_id')
+            ->select('service.*')
+            ->where('service.valid_id', 1)
+            ->where('service.type_id', 4)
+            ->where('service.name','like',"$id%")
+            ->orderBy('service.name')
             ->get();
 
         $catalog = array();
@@ -96,7 +156,9 @@ class ITSM extends Model
                     'Name' => $tmp[1],
                     'Type' => $tmp[0],
                     'Queue' => $tmp[1],
+                    //'Queue' => '',
                     'Origin' => $tmp[0].'::'.$tmp[1],
+                    //'Origin' => $tmp[1],
                     'Img' => '',
                     'Description' => '',
                 );
@@ -108,6 +170,7 @@ class ITSM extends Model
         $tmp = $catalog;
         foreach ($catalog as $key => $item){
             // get attributes
+            // random images:: https://picsum.photos/
             $servicePref = $this->getServicePreferences($item['Id']);
             foreach($servicePref as $pref){
                 if ($pref->preferences_key == 'ServiceCommentBusiness'){
@@ -130,10 +193,12 @@ class ITSM extends Model
     public function getServiceCategory($id){
         // Get All Services
         $services = $this->container->db->table('service')
-            ->where('valid_id', 1)
-            ->where('type_id', 4)
-            ->where('name','like',"$id%")
-            ->orderBy('name')
+            ->join('service_customer_user','service.id','=','service_customer_user.service_id')
+            ->select('service.*')
+            ->where('service.valid_id', 1)
+            ->where('service.type_id', 4)
+            ->where('service.name','like',"$id%")
+            ->orderBy('service.name')
             ->get();
 
         $category = array();
@@ -179,13 +244,74 @@ class ITSM extends Model
     /**
      *
      */
+    public function getServiceCatalog(){
+        // Get All Services
+        $services = $this->container->db->table('service')
+            ->join('service_customer_user','service.id','=','service_customer_user.service_id')
+            ->select('service.*')
+            ->where('service.valid_id', 1)
+            ->where('service.type_id', 4)
+            ->orderBy('service.name')
+            ->get();
+
+        $catalog = array();
+        $oldCatalog = '';
+        foreach ($services as $service) {
+            $tmp = explode('::', $service->name);
+            $id = $this->getService($tmp[0].'::'.$tmp[1]);
+            $idCatalog = $id[0]->id;
+
+            if ($oldCatalog != $tmp[0]){
+                $catalog[] = array(
+                    'Id' => $idCatalog,
+                    'Name' => $tmp[0],
+                    'Type' => $tmp[0],
+                    //'Queue' => $tmp[1],
+                    'Queue' => '',
+                    //'Origin' => $tmp[0].'::'.$tmp[1],
+                    'Origin' => $tmp[0],
+                    'Img' => '',
+                    'Description' => '',
+                );
+            }
+            $oldCatalog = $tmp[0];
+        }
+
+        // Get Services attributes
+        $tmp = $catalog;
+        foreach ($catalog as $key => $item){
+            // get attributes
+            // random images:: https://picsum.photos/
+            $servicePref = $this->getServicePreferences($item['Id']);
+            foreach($servicePref as $pref){
+                if ($pref->preferences_key == 'ServiceCommentBusiness'){
+                    $tmp[$key]['Description'] = $pref->preferences_value;
+                }
+                if ($pref->preferences_key == 'ServiceImgBusiness'){
+                    $tmp[$key]['Img'] = $pref->preferences_value;
+                }
+            }
+
+        }
+        $catalog = $tmp;
+
+        return $catalog;
+    }
+
+    
+
+    /**
+     *
+     */
     public function getServiceService($id){
         // Get All Services
         $services = $this->container->db->table('service')
-            ->where('valid_id', 1)
-            ->where('type_id', 4)
-            ->where('name','like',"$id%")
-            ->orderBy('name')
+            ->join('service_customer_user','service.id','=','service_customer_user.service_id')
+            ->select('service.*')
+            ->where('service.valid_id', 1)
+            ->where('service.type_id', 4)
+            ->where('service.name','like',"$id%")
+            ->orderBy('service.name')
             ->get();
 
         $obj = array();
@@ -196,18 +322,18 @@ class ITSM extends Model
             //$idService = $id[0]->id;
             $idService = $service->id;
 
-            if ($oldService != $tmp[3]){
+            if ($oldService != $tmp[2]){
                 $obj[] = array(
                     'Id' => $idService,
-                    'Name' => $tmp[3],
+                    'Name' => $tmp[2],
                     'Type' => $tmp[0],
                     'Queue' => $tmp[1],
-                    'Origin' => $tmp[0].'::'.$tmp[1].'::'.$tmp[2].'::'.$tmp[3],
+                    'Origin' => $tmp[0].'::'.$tmp[1].'::'.$tmp[2],
                     'Img' => '',
                     'Description' => '',
                 );
             }
-            $oldService = $tmp[3];
+            $oldService = $tmp[2];
         }
 
         // Get Services attributes

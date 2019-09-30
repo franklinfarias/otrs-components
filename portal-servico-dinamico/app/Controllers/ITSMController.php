@@ -46,18 +46,45 @@ class ITSMController extends Controller
         ]);
     }
 
-    public function category($request, $response, $args)
+    public function type($request, $response, $args)
     {
-        $this->logger->info("Application ITSMController '/catalog/category' route");
+        $this->logger->info("Application ITSMController '/type' route");
+
+        $model = new ITSM();
+        $model->container = $this->container;
+        $catalogs = $model->getServiceType();
+
+        return $this->view->render($response, 'type.html', [
+            'catalogs' => $catalogs,
+        ]);
+    }
+
+    public function group($request, $response, $args)
+    {
+        $this->logger->info("Application ITSMController '/type/group' route");
 
         $idCatalog = $args['id'];
         $model = new ITSM();
         $model->container = $this->container;
-        $categorys = $model->getServiceCategory($idCatalog);
+        $catalogs = $model->getServiceGroup($idCatalog);
+
+        return $this->view->render($response, 'group.html', [
+            'catalogs' => $catalogs,
+        ]);
+    }
+
+    public function category($request, $response, $args)
+    {
+        $this->logger->info("Application ITSMController '/type/group/category' route");
+
+        $idCatalog = $args['id'];
+        $model = new ITSM();
+        $model->container = $this->container;
+        $catalogs = $model->getServiceCategory($idCatalog);
 
 
         return $this->view->render($response, 'category.html', [
-            'categorys' => $categorys,
+            'catalogs' => $catalogs,
         ]);
     }
 
@@ -68,10 +95,10 @@ class ITSMController extends Controller
         $idCategory = $args['id'];
         $model = new ITSM();
         $model->container = $this->container;
-        $services = $model->getServiceService($idCategory);
+        $catalogs = $model->getServiceService($idCategory);
 
         return $this->view->render($response, 'service.html', [
-            'services' => $services,
+            'catalogs' => $catalogs,
         ]);
     }
 
@@ -81,10 +108,16 @@ class ITSMController extends Controller
 
         $idService = $args['id'];
 
+        // get services
+        $services = $this->container->db->table('service')
+            ->where('id', $idService)
+            ->get();
+
         return $this->view->render($response, 'form.html', [
             'csrf_name' => $this->csrf->getTokenName(),
             'csrf_value' => $this->csrf->getTokenValue(),
             'service_id' => $idService,
+            'services' => $services[0],
         ]);
     }
 

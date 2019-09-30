@@ -1,6 +1,8 @@
 #Portal de Serviços
 Portal de Serviços dinâmico para todas as áreas da empresa.
 
+Este componente utiliza o framework Slim para aplicações em PHP 7.
+
 ##Instalação
 - Instalar o pacote FKSBusinessCatalogPortal;
 

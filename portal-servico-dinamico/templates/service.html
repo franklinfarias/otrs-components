@@ -9,17 +9,38 @@
 
 <!-- Example row of columns -->
 <div class="row">
-    {% for service in services %}
-    <div class="card" style="width: 18rem;">
-        <img src="{{ base_url() }}{{ service.Img }}" class="card-img-top" alt="{{ service.Name }}">
-        <div class="card-body">
-            <h5 class="card-title">{{ service.Name }}</h5>
-            <p class="card-text">{{ service.Description }}</p>
-            <a href="{{ base_url() }}/catalog/category/service/{{ service.Id }}" class="btn btn-primary">Solicitar</a>
+        <!-- Card deck -->
+        <div class="card-deck">
+            {% for catalog in catalogs %}
+            <!-- Card -->
+            <div class="card mb-4">
+        
+                <!--Card image-->
+                <div class="view overlay">
+                <img class="card-img-top" src="{{ catalog.Img }}" alt="{{ catalog.Name }}">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+                </div>
+            
+                <!--Card content-->
+                <div class="card-body">
+            
+                <!--Title-->
+                <h4 class="card-title">{{ catalog.Name }}</h4>
+                <!--Text-->
+                <p class="card-text">{{ catalog.Description }}</p>
+                <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                <!-- button type="button" class="btn btn-light-blue btn-md">Read more</button -->
+                <a href="{{ base_url() }}/type/group/category/service/{{ catalog.Id }}" class="btn btn-light-blue btn-md">Solicitar</a>
+            
+                </div>
+            
+            </div>
+            <!-- Card -->
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
-</div>
 
 {% endblock %}
 
